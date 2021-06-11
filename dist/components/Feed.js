@@ -9,8 +9,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _Instagram = _interopRequireDefault(require("./../lib/Instagram"));
 
-var _reactInstagramEmbed = _interopRequireDefault(require("react-instagram-embed"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -80,32 +78,26 @@ var Feed = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       if (this.props.userName === undefined) return /*#__PURE__*/_react["default"].createElement("h4", null, "username is undefined");
-      if (this.props.clientAccessToken === undefined) return /*#__PURE__*/_react["default"].createElement("h4", null, "clientAccessToken is undefined");
       return /*#__PURE__*/_react["default"].createElement("div", {
         style: {
           overflowY: "auto",
           margin: "auto",
-          padding: "1%",
-          minWidth: "380px",
           maxHeight: "".concat(this.props.maxContainerHeight, "px"),
-          maxWidth: "".concat(this.props.maxWidth + 60, "px")
+          maxWidth: "".concat(this.props.width + 20, "px")
         }
       }, this.state.media.map(function (media, index) {
-        return /*#__PURE__*/_react["default"].createElement(_reactInstagramEmbed["default"], {
-          alt: media.alt,
+        return /*#__PURE__*/_react["default"].createElement("div", {
           key: index,
-          url: media.url,
-          clientAccessToken: _this3.props.clientAccessToken,
-          maxWidth: _this3.props.width,
-          hideCaption: _this3.props.hideCaption,
-          containerTagName: "div",
-          protocol: _this3.props.protocol,
-          injectScript: _this3.props.injectScript // onLoading={() => {}} // * Maybe Later
-          // onSuccess={() => {}}
-          // onAfterRender={() => {}}
-          // onFailure={() => {}}
-
-        });
+          style: {
+            marginBottom: "14px"
+          }
+        }, /*#__PURE__*/_react["default"].createElement("iframe", {
+          alt: media.alt,
+          height: "460",
+          src: "".concat(media.url, "/embed"),
+          width: _this3.props.width.toString(),
+          frameBorder: "0"
+        }));
       }));
     }
   }]);
@@ -116,11 +108,8 @@ var Feed = /*#__PURE__*/function (_Component) {
 _defineProperty(Feed, "defaultProps", {
   getFeedFn: _Instagram["default"].getFeed,
   limit: 12,
-  hideCaption: false,
-  maxWidth: "",
-  protocol: "",
-  maxContainerHeight: 510,
-  injectScript: true
+  width: 320,
+  maxContainerHeight: 510
 });
 
 var _default = Feed;
